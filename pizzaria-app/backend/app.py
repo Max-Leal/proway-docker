@@ -5,7 +5,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
-
+@app.route('/', methods=['GET'])
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy", "service": "pizzaria-backend"}), 200
 # Dados simulados para a aplicação
 pizzas = [
     {
