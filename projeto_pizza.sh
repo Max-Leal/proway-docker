@@ -24,7 +24,7 @@ fi
 
 chmod +x /root/proway-docker/projeto_pizza.sh
 
-for porta in 8080 5001; do
+for porta in 80 5001; do
     lsof -ti:$porta | xargs -r kill -9
 done
 
