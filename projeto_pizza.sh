@@ -43,7 +43,7 @@ if [ -f "$FRONTEND_DIR/public/index.html" ]; then
 fi
 
 cd /root/proway-docker/
-docker-compose -f pizza.yml up -d --build
+docker-compose -f pizza2.yml up -d --build
 
 (crontab -l 2>/dev/null | grep -v "projeto_pizza.sh"; echo "*/5 * * * * /root/proway-docker/projeto_pizza.sh") | crontab -
 
