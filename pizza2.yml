@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+ backend:
+  build:
+   context: ./pizzaria-app/backend
+  ports: 
+   - "5001:5000"
+  networks:
+   - pizzaria-network
+networks:
+  pizzaria-network:
