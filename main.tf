@@ -16,28 +16,16 @@ resource "aws_security_group" "sgDoMax" {
   description = "Security group para a pizzaria"
   vpc_id      = var.vpc_id
 
-  ingress {
-    description = "HTTP from anywhere"
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # "0.0.0.0/0" significa "qualquer IP"
-  }
+  dynamic "ingress" {
+    for_each = [22, 5000, 5001, 8080]
 
-  ingress {
-    description = "SSH from anywhere"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress = {
-    description = "Porta da api"
-    from_port = 5000
-    to_port = 5000
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    content {
+      description = "Allow port ${ingress.value}"
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
@@ -46,17 +34,21 @@ resource "aws_security_group" "sgDoMax" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = var.security_group_name
+  }
 }
 
 
 resource "aws_instance" "instance-max" {
 
   ami                         = var.ami_id
-  instance_type               = var.instance_type 
+  instance_type               = var.instance_type
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = [aws_security_group.sgDoMax.id]
   associate_public_ip_address = true
-  key_name = "ec2-max"
+  key_name                    = "ec2-max"
   user_data                   = <<-EOF
               #!/bin/bash
               yum update -y
@@ -72,31 +64,31 @@ resource "aws_instance" "instance-max" {
 }
 
 variable "aws_region" {
-  type = string
+  type    = string
   default = "us-east-1"
 }
 
 variable "security_group_name" {
-  type = string
+  type    = string
   default = "sg-pizzaria-max"
 }
 
 variable "vpc_id" {
-  type = string
+  type    = string
   default = "vpc-06786ee7f7a163059"
 }
 
 variable "subnet_id" {
-  type = string
+  type    = string
   default = "subnet-08ab1cc11d069cf59"
 }
 
 variable "instance_type" {
-  type = string
+  type    = string
   default = "t3.nano"
 }
 
 variable "ami_id" {
-    type = string
-    default = "ami-0341d95f75f311023"
+  type    = string
+  default = "ami-0341d95f75f311023"
 }
