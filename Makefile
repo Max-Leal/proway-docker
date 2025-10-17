@@ -6,9 +6,11 @@ tf_reqs:
 	dnf -y install terraform
 
 requirements:
+	dnf install docker -y
 	mkdir -p /usr/libexec/docker/cli-plugins
 	curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/libexec/docker/cli-plugins/docker-compose
 	chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+	systemctl restart docker
 	ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
 
 run:
