@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
 resource "aws_security_group" "sgDoMax" {
   name        = var.security_group_name
   description = "Security group para a pizzaria"
@@ -50,10 +63,40 @@ resource "aws_instance" "instance-max" {
               yum install -y make
               make requirements
               make run
-              
+
               EOF
 
   tags = {
     Name = "ec2-pizzaria-max"
   }
+}
+
+variable "aws_region" {
+  type = string
+  default = "us-east-1"
+}
+
+variable "security_group_name" {
+  type = string
+  default = "sg-pizzaria-max"
+}
+
+variable "vpc_id" {
+  type = string
+  default = "vpc-06786ee7f7a163059"
+}
+
+variable "subnet_id" {
+  type = string
+  default = "subnet-08ab1cc11d069cf59"
+}
+
+variable "instance_type" {
+  type = string
+  default = "t3.nano"
+}
+
+variable "ami_id" {
+    type = string
+    default = "ami-0341d95f75f311023"
 }
