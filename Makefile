@@ -9,6 +9,7 @@ requirements:
 	mkdir -p /usr/libexec/docker/cli-plugins
 	curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/libexec/docker/cli-plugins/docker-compose
 	chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+	ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
 
 run:
 	docker-compose -f /proway-docker/pizzaria-app/docker-compose.yml up --build
