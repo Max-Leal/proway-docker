@@ -51,7 +51,9 @@ resource "aws_instance" "instance-max" {
   user_data                   = <<-EOF
               #!/bin/bash
               yum update -y
-              yum install -y make
+              yum install -y make git
+              git clone https://github.com/Max-Leal/proway-docker.git
+              cd ./proway-docker
               make requirements
               make run
 
