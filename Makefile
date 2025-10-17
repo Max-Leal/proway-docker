@@ -1,9 +1,15 @@
 default: run
 
+tf_reqs:
+	dnf install -y dnf-plugins-core
+	dnf config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+	dnf -y install terraform
+
 requirements:
 	mkdir -p /usr/libexec/docker/cli-plugins
 	curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/libexec/docker/cli-plugins/docker-compose
 	chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+	yum install terraform -y
 
 run:
 	docker-compose -f /proway-docker/pizzaria-app/docker-compose.yml up --build
