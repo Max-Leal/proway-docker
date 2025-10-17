@@ -48,7 +48,6 @@ resource "aws_instance" "instance-max" {
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = [aws_security_group.sgDoMax.id]
   associate_public_ip_address = true
-  key_name                    = "ec2-max"
   user_data                   = <<-EOF
               #!/bin/bash
               yum update -y
