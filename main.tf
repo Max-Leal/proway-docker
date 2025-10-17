@@ -70,7 +70,7 @@ variable "aws_region" {
 
 variable "security_group_name" {
   type    = string
-  default = "sg-pizzaria-max"
+  default = "pizzaria-max"
 }
 
 variable "vpc_id" {
