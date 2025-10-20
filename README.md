@@ -4,7 +4,7 @@ Este repositório documenta a minha solução para um desafio prático do progra
 
 ---
 
-### 🎯 O Desafio (O Ponto de Partida)
+### Desafio (O Ponto de Partida)
 
 O projeto foi entregue com o backend não funcional e um ficheiro `README.md` com as seguintes "Pendências Técnicas":
 * Criar o `Dockerfile` para o projeto Backend (Python 3.9).
@@ -14,7 +14,7 @@ O projeto foi entregue com o backend não funcional e um ficheiro `README.md` co
 
 ---
 
-### 💡 A Minha Solução (O Foco DevOps)
+### A Minha Solução (O Foco DevOps)
 
 Com um prazo de apenas 2 dias, foquei não apenas em resolver o problema, mas em criar uma solução automatizada e robusta.
 
@@ -59,10 +59,10 @@ Para rodar este projeto localmente, basta ter o **Git** e o **Docker** (com Dock
     ./projeto_pizza.sh
     ```
 
-A aplicação estará disponível no seu navegador. *(Verifique a porta correta no `docker-compose.yml`, provavelmente `http://localhost:80` ou `http://localhost:8080`)*.
+A aplicação estará disponível no seu navegador. *(Verifique a porta correta no `projeto_pizza.yml`, atualmente está disponível na `http://localhost:80`)*.
 
 ---
 
-### 🧠 Principais Aprendizados
+### Principais Aprendizados
 
 Este projeto foi uma imersão intensiva em Bash scripting, Docker e na importância de criar automações idempotentes. Finalizar a solução completa dentro do prazo de 2 dias foi um grande aprendizado sobre resolução de problemas sob pressão.
