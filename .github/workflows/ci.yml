@@ -16,3 +16,28 @@ jobs:
       - name: checagem
         run: |
           echo "Fazendo a checagem ${{ vars.AWS_ACCESS_KEY }}"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+    
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var-file="terraform.tfvars"
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -var-file="terraform.tfvars" -auto-approve

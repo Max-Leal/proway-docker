@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Aws configure
+        id: awsconfig
+        run: aws configure
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -var-file="terraform.tfvars" -auto-approve
+      
+    
+    
