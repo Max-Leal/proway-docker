@@ -12,3 +12,4 @@ jobs:
    - name: checagem
      run: |
        echo "Fazendo a checagem ${{ vars.AWS_ACCESS_KEY }}"
+       
