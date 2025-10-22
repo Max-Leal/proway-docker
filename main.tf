@@ -58,7 +58,7 @@ resource "aws_key_pair" "debian_key" {
   public_key = file("~/.ssh/id_rsa.pub")  # Altere para o caminho da sua chave pública
 }
 resource "aws_instance" "debian" {
-  ami           = ami = data.aws_ami.amazon_linux_2023.id
+  ami           = data.aws_ami.amazon_linux_2023.id
   instance_type = "t3.micro" 
   key_name               = aws_key_pair.debian_key.key_name
   vpc_security_group_ids = [aws_security_group.debian_sg.id]
