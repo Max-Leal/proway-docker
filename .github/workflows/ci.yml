@@ -11,5 +11,5 @@ jobs:
       ls -la
    - name: checagem
      run: |
-       echo "Fazendo a checagem ${{ vars.AWS_ACCESS_KEY }}"
+      echo "Fazendo a checagem ${{ secrets.AWS_ACCESS_KEY }}"
        
