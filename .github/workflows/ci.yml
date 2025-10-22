@@ -1,15 +1,35 @@
+name: Terraform Pipeline
 on:
- push:
-  branches: [ main ]
+  push:
+    branches: [main]
+
 jobs:
- check:
-  runs-on: ubuntu-latest
-  steps:
-   - uses: actions/checkout@v4
-   - name: build
-     run: |
-      ls -la
-   - name: checagem
-     run: |
-      echo "Fazendo a checagem ${{ secrets.AWS_ACCESS_KEY }}"
-       
+  terraform:
+    name: Terraform Validation, Format, Plan and Apply
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7  # ou a versão que você estiver usando
+
+      - name: Validação do Terraform
+        run: terraform validate
+
+      - name: Formatar Terraform
+        run: terraform fmt -recursive
+
+      - name: Plano Terraform
+        run: terraform plan -auto-approve
+
+      - name: Aplicar Terraform
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve 
