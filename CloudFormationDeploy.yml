@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template CloudFormation para Pizzaria Bryan
+Resources:
+  SecGroupBryanPizza3010:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group Pizzaria Bryan Packer
+      VpcId: vpc-06786ee7f7a163059
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 5001
+          ToPort: 5001
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 0
+          CidrIp: 0.0.0.0/0
+
+  EC2Pizzaria:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0bdd88bd06d16ba03
+      InstanceType: t3.micro
+      SecurityGroupIds: 
+        - !Ref SecGroupBryanPizza3010
+      SubnetId: subnet-08ab1cc11d069cf59
+      Tags: 
+        - Key: Name
+          Value: Aws_Ec2instance_Pizzaria_Bryan
+      UserData: 
+        Fn::Base64: |
+          #!/bin/bash
+          yum update -y && yum install -y git docker cronie lsof
+          curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          for service in docker crond; do
+            systemctl start $service
+            systemctl enable $service
+          done
+          cd /root
+          git clone https://github.com/BryanPacker/proway-docker.git
+          chmod +x ./proway-docker/projeto_pizza.sh
+          ./proway-docker/projeto_pizza.sh
+
+Outputs:
+  PublicIP:
+    Description: IP publico da instancia
+    Value: !GetAtt EC2Pizzaria.PublicIp
