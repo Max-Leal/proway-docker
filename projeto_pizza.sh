@@ -3,7 +3,7 @@
 yum update -y
 yum install -y git docker cronie lsof
 
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 for service in docker crond; do
@@ -32,7 +32,7 @@ done
 SERVER_IP=$(curl ifconfig.me)
 FRONTEND_DIR="pizzaria-app/frontend"
 
- Update Dockerfile with the correct backend URL
+# Update Dockerfile with the correct backend URL
 if [ -f "$FRONTEND_DIR/Dockerfile" ]; then
     sed -i "s|REACT_APP_BACKEND_URL=http://.*:5001|REACT_APP_BACKEND_URL=http://$SERVER_IP:5001|g" "$FRONTEND_DIR/Dockerfile"
 fi
