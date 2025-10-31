@@ -14,10 +14,10 @@ requirements:
 	ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
 
 run:
-	docker-compose -f /proway-docker/pizzaria-app/docker-compose.yml up --build
+	docker-compose -f ./pizzaria-app/docker-compose.yml up --build
 
 stop:
-	docker-compose -f /proway-docker/pizzaria-app/docker-compose.yml down
+	docker-compose -f ./pizzaria-app/docker-compose.yml down
 
 deploy:
 	terraform init
