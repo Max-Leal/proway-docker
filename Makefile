@@ -9,11 +9,9 @@ requirements:
 	yum install docker -y
 	systemctl start docker
 	systemctl enable docker
-	mkdir -p /usr/libexec/docker/cli-plugins
-	curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(shell uname -s)-$(shell uname -m)" -o /usr/libexec/docker/cli-plugins/docker-compose
-	chmod +x /usr/libexec/docker/cli-plugins/docker-compose
-	rm -f /usr/local/bin/docker-compose
-	ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
+	usermod -aG docker ec2-user
+	curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(shell uname -s)-$(shell uname -m)" -o /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
 
 run:
 	docker-compose -f ./pizzaria-app/docker-compose.yml up --build
